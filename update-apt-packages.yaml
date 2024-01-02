@@ -1,9 +1,13 @@
 ---
-- hosts: all
-
-  become: true
+- name: Update and Upgrade APT packages
+  hosts: all
+  become: yes
   tasks:
-    - name: update apt packages
-      apt:
-        upgrade: yes
+    - name: Update APT repositories
+      ansible.builtin.apt:
         update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Upgrade all APT packages
+      ansible.builtin.apt:
+        upgrade: dist
